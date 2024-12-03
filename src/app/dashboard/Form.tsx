@@ -30,13 +30,13 @@ const formSchema = z.object({
     nik: z
         .string()
         .regex(/^\d{16}$/, { message: "NIK harus terdiri dari 16 digit angka." }),
-    usia: z
-        .number()
-        .min(0, { message: "Usia tidak boleh kurang dari 0." })
-        .max(120, { message: "Usia tidak boleh lebih dari 120." }),
-    jenisKelamin: z.enum(["Laki-laki", "Perempuan"], {
-        message: "Jenis kelamin harus dipilih.",
-    }),
+usia: z
+    .string()
+    .nonempty({ message: "Usia tidak boleh kosong." })
+    .transform((val) => Number(val))
+    .refine((val) => !isNaN(val), { message: "Usia harus berupa angka." })
+    .refine((val) => val >= 0, { message: "Usia tidak boleh kurang dari 0." })
+    .refine((val) => val <= 120, { message: "Usia tidak boleh lebih dari 120." }),
     pendidikan: z.string().nonempty({ message: "Pendidikan tidak boleh kosong." }),
     pekerjaan: z.string().nonempty({ message: "Pekerjaan tidak boleh kosong." }),
     alamat: z.string().nonempty({ message: "Alamat tidak boleh kosong." }),
