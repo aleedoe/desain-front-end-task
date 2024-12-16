@@ -23,9 +23,25 @@ const data = {
       url: "#",
       items: [
         {
-          title: "Dashboard Penduduk",
+          title: "Dashboard",
           url: "#",
           isActive: true,
+        },
+      ],
+    },
+    {
+      title: "Master",
+      url: "#",
+      items: [
+        {
+          title: "Penduduk",
+          url: "#",
+          isActive: true,
+        },
+        {
+          title: "Perpindahan Penduduk",
+          url: "#",
+          isActive: false,
         },
       ],
     },
