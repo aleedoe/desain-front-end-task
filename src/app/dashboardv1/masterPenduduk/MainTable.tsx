@@ -1,8 +1,9 @@
+"use client"
+
 import React from 'react'
 import {
     Card,
     CardContent,
-    CardDescription,
     CardFooter,
     CardHeader,
     CardTitle,
@@ -27,9 +28,52 @@ import {
 } from "@/components/ui/pagination"
 import { Button } from '@/components/ui/button'
 
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+interface Penduduk {
+    nik: string;
+    nama: string;
+    tempatLahir: string;
+    tanggalLahir: string;
+    jenisKelamin: string;
+    alamat?: string;
+    statusPekerjaan?: string;
+    statusPernikahan?: string;
+    agama: string;
+    nomorTelepon?: string;
+    pendidikanTerakhir?: string;
+    tanggalRegistrasi: string;
+    statusVerifikasi: string;
+    catatanPetugas?: string;
+}
 
 
 const MainTable = () => {
+
+    const [pendudukList, setPendudukList] = useState<Penduduk[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchPendudukData = async () => {
+            try {
+                const response = await axios.get('/api/penduduk'); // Sesuaikan dengan endpoint API Anda
+                setPendudukList(response.data);
+            } catch (err) {
+                setError('Failed to fetch data.');
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPendudukData();
+    }, []);
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
+
     return (
         <Card>
             <CardHeader>
@@ -39,25 +83,34 @@ const MainTable = () => {
             </CardHeader>
             <CardContent>
                 <Table>
-                    <TableCaption>A list of your recent invoices.</TableCaption>
+                    <TableCaption>Daftar Penduduk Terdaftar</TableCaption>
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="w-[100px]">Invoice</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead>Method</TableHead>
-                            <TableHead className="text-right">Amount</TableHead>
+                            <TableHead className="w-[120px]">NIK</TableHead>
+                            <TableHead>Nama</TableHead>
+                            <TableHead>Tempat Lahir</TableHead>
+                            <TableHead>Tanggal Lahir</TableHead>
+                            <TableHead>Jenis Kelamin</TableHead>
+                            <TableHead>Alamat</TableHead>
+                            <TableHead>Agama</TableHead>
+                            <TableHead>Status Verifikasi</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        <TableRow>
-                            <TableCell className="font-medium">INV001</TableCell>
-                            <TableCell>Paid</TableCell>
-                            <TableCell>Credit Card</TableCell>
-                            <TableCell className="text-right">$250.00</TableCell>
-                        </TableRow>
+                        {pendudukList.map((penduduk) => (
+                            <TableRow key={penduduk.nik}>
+                                <TableCell className="font-medium">{penduduk.nik}</TableCell>
+                                <TableCell>{penduduk.nama}</TableCell>
+                                <TableCell>{penduduk.tempatLahir}</TableCell>
+                                <TableCell>{new Date(penduduk.tanggalLahir).toLocaleDateString()}</TableCell>
+                                <TableCell>{penduduk.jenisKelamin}</TableCell>
+                                <TableCell>{penduduk.alamat || "-"}</TableCell>
+                                <TableCell>{penduduk.agama}</TableCell>
+                                <TableCell>{penduduk.statusVerifikasi}</TableCell>
+                            </TableRow>
+                        ))}
                     </TableBody>
                 </Table>
-
             </CardContent>
             <CardFooter>
                 <Pagination>
