@@ -31,6 +31,7 @@ import { Button } from '@/components/ui/button'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { SquarePen, Trash2 } from 'lucide-react'
+import { HapusPenduduk, TambahPenduduk } from './MainActions'
 
 interface Penduduk {
     nik: string;
@@ -79,7 +80,9 @@ const MainTable = () => {
         <Card>
             <CardHeader>
                 <CardTitle>
-                    <Button variant="outline">Tambah Penduduk</Button>
+                    <TambahPenduduk>
+                        <Button variant="outline">Tambah Penduduk</Button>
+                    </TambahPenduduk>
                 </CardTitle>
             </CardHeader>
             <CardContent>
@@ -111,9 +114,11 @@ const MainTable = () => {
                                 <TableCell>{penduduk.agama}</TableCell>
                                 <TableCell className=''>
                                     <div className='flex flex-row'>
-                                        <Button variant="ghost">
-                                            <Trash2 className="text-red-500" />
-                                        </Button>
+                                        <HapusPenduduk>
+                                            <Button variant="ghost">
+                                                <Trash2 className="text-red-500" />
+                                            </Button>
+                                        </HapusPenduduk>
                                         <Button variant="ghost">
                                             <SquarePen className='text-blue-500' />
                                         </Button>
