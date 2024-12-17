@@ -86,6 +86,7 @@ const MainTable = () => {
                     <TableCaption>Daftar Penduduk Terdaftar</TableCaption>
                     <TableHeader>
                         <TableRow>
+                            <TableHead className="w-[50px]">No</TableHead>
                             <TableHead className="w-[120px]">NIK</TableHead>
                             <TableHead>Nama</TableHead>
                             <TableHead>Tempat Lahir</TableHead>
@@ -97,8 +98,9 @@ const MainTable = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {pendudukList.map((penduduk) => (
+                        {pendudukList.map((penduduk, index) => (
                             <TableRow key={penduduk.nik}>
+                                <TableCell className="font-medium">{index + 1}</TableCell>
                                 <TableCell className="font-medium">{penduduk.nik}</TableCell>
                                 <TableCell>{penduduk.nama}</TableCell>
                                 <TableCell>{penduduk.tempatLahir}</TableCell>
