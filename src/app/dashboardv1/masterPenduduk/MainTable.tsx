@@ -30,6 +30,7 @@ import { Button } from '@/components/ui/button'
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { SquarePen, Trash2 } from 'lucide-react'
 
 interface Penduduk {
     nik: string;
@@ -94,7 +95,7 @@ const MainTable = () => {
                             <TableHead>Jenis Kelamin</TableHead>
                             <TableHead>Alamat</TableHead>
                             <TableHead>Agama</TableHead>
-                            <TableHead>Status Verifikasi</TableHead>
+                            <TableHead>Aksi</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -108,7 +109,16 @@ const MainTable = () => {
                                 <TableCell>{penduduk.jenisKelamin}</TableCell>
                                 <TableCell>{penduduk.alamat || "-"}</TableCell>
                                 <TableCell>{penduduk.agama}</TableCell>
-                                <TableCell>{penduduk.statusVerifikasi}</TableCell>
+                                <TableCell className=''>
+                                    <div className='flex flex-row'>
+                                        <Button variant="ghost">
+                                            <Trash2 className="text-red-500" />
+                                        </Button>
+                                        <Button variant="ghost">
+                                            <SquarePen className='text-blue-500' />
+                                        </Button>
+                                    </div>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
