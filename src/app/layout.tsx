@@ -1,16 +1,11 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Metadata } from "next";
+import { Roboto } from "next/font/google"; // Mengimpor font Roboto
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+// Menggunakan font Roboto dengan variasi berat (weight)
+const roboto = Roboto({
+  weight: ["100", "400", "500", "700", "900"], // Variasi berat yang tersedia
+  subsets: ["latin"], // Subset untuk mengurangi ukuran font jika hanya menggunakan karakter tertentu
 });
 
 export const metadata: Metadata = {
@@ -25,9 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${roboto.className} antialiased`}>
         {children}
       </body>
     </html>
