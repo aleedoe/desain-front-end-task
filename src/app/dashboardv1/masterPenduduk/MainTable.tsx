@@ -146,7 +146,6 @@ const MainTable = () => {
                         </PaginationItem>
                     </PaginationContent>
                 </Pagination>
-
             </CardFooter>
         </Card>
     )
